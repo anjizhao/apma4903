@@ -41,6 +41,15 @@ def do_demo(param=None):
     print sse
 
 
+def do_demo2(param=None):
+    dataset = generate_2demo_data()
+    plot_points(dataset)
+    k = 2
+    initial = [(1, 5), (5, 1)]
+    c, z, sse = demo_kmeans(dataset, k, initial, plot=True)
+    print sse
+
+
 def tune_k(dataset, k_range):
     # run kmeans on dataset for each k in k_range (k_range is a list of ints)
     # then plot the SSE for the best clustering produced by each k
@@ -210,6 +219,16 @@ def plot_kmeans_3d(points, c, z, block=False, title=''):
 def generate_4demo_data():
     np.random.seed(2)
     centers = [(-1, 5), (2, 0), (12, 8), (10, -2)]
+    points = []
+    for cent in centers:
+        for i in range(30):
+            points.append(np.random.multivariate_normal(cent, np.identity(2)))
+    return points
+
+
+def generate_2demo_data():
+    np.random.seed(5)
+    centers = [(1, 1), (5, 5)]
     points = []
     for cent in centers:
         for i in range(30):
